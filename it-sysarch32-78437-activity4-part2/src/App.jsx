@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
-
 function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -83,39 +82,39 @@ function App() {
   return (
     <div className="App">
       {isLoggedIn ? (
-        <div>
-          <h2>Create Product</h2>
-          <input type="text" placeholder="Name" value={productName} onChange={(e) => setProductName(e.target.value)} />
-          <input type="number" placeholder="Price" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
-          <input type="file" onChange={(e) => setProductImage(e.target.files[0])} />
-          <button onClick={createProduct}>Create Product</button>
+        <div className="container">
+          <h2 className="title">Create Product</h2>
+          <input className="form-group" type="text" placeholder="Name" value={productName} onChange={(e) => setProductName(e.target.value)} />
+          <input className="form-group" type="number" placeholder="Price" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
+          <input className="form-group" type="file" onChange={(e) => setProductImage(e.target.files[0])} />
+          <button className="form-group" onClick={createProduct}>Create Product</button>
         </div>
       ) : (
-        <div>
+        <div className="container">
           {isLogin ? (
             <div>
-              <h1>Login</h1>
-              <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-              <button onClick={handleAuth}>Login</button>
-              <p>Don't have an account? <button onClick={() => setIsLogin(false)}>Sign up</button></p>
+              <h1 className="title">Login</h1>
+              <input className="form-group" type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <input className="form-group" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <button className="form-group" onClick={handleAuth}>Login</button>
+              <p className="switch-mode">Don't have an account? <button onClick={() => setIsLogin(false)}>Sign up</button></p>
             </div>
           ) : (
             <div>
-              <h1>Sign Up</h1>
-              <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-              <button onClick={handleAuth}>Sign up</button>
-              <p>Already have an account? <button onClick={() => setIsLogin(true)}>Login</button></p>
+              <h1 className="title">Sign Up</h1>
+              <input className="form-group" type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <input className="form-group" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <button className="form-group" onClick={handleAuth}>Sign up</button>
+              <p className="switch-mode">Already have an account? <button onClick={() => setIsLogin(true)}>Login</button></p>
             </div>
           )}
         </div>
       )}
 
       {isLoggedIn && (
-        <div>
-          <h2>Products</h2>
-          <table>
+        <div className="container">
+          <h2 className="title">Products</h2>
+          <table className="grid">
             <thead>
               <tr>
                 <th>Name</th>
@@ -129,9 +128,9 @@ function App() {
                 <tr key={product._id}>
                   <td>{product.name}</td>
                   <td>{product.price}</td>
-                  <td><img src={'http://localhost:3000/${product.productImage}'} alt={product.name} style={{ height: '500px', width: '500px' }} /></td>
+                  <td><img src={`/uploads/${product.productImage}`} alt={product.name} className="icons" style={{ height: '500px', width: '500px' }} /></td>
                   <td>
-                    <button onClick={() => deleteProduct(product._id)}>Delete</button>
+                    <button className="form-group" onClick={() => deleteProduct(product._id)}>Delete</button>
                   </td>
                 </tr>
               ))}

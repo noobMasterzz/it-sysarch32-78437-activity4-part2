@@ -12,6 +12,8 @@ function App() {
   const [productPrice, setProductPrice] = useState('');
   const [productImage, setProductImage] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track whether user is logged in
+  const [signupSuccess, setSignupSuccess] = useState(false); // Track signup success message
+  const [loginSuccess, setLoginSuccess] = useState(false); // Track login success message
 
   useEffect(() => {
     if (token) {
@@ -26,6 +28,7 @@ function App() {
         .then(response => {
           setToken(response.data.token);
           setIsLoggedIn(true); // Set user as logged in
+          setLoginSuccess(true); // Set login success message
         })
         .catch(error => console.error(error));
     } else {
@@ -34,6 +37,7 @@ function App() {
         .then(response => {
           // Automatically login after signup
           handleAuth();
+          setSignupSuccess(true); // Set signup success message
         })
         .catch(error => console.error(error));
     }
@@ -43,6 +47,7 @@ function App() {
     axios.get('http://localhost:3000/products')
       .then(response => {
         setProducts(response.data.products);
+        console.log(response.data.products[0].productImage);
       })
       .catch(error => console.error(error));
   };
@@ -97,6 +102,7 @@ function App() {
               <input className="form-group" type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
               <input className="form-group" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
               <button className="form-group" onClick={handleAuth}>Login</button>
+              {loginSuccess && <p className="success-message">Login successful</p>}
               <p className="switch-mode">Don't have an account? <button onClick={() => setIsLogin(false)}>Sign up</button></p>
             </div>
           ) : (
@@ -105,6 +111,7 @@ function App() {
               <input className="form-group" type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
               <input className="form-group" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
               <button className="form-group" onClick={handleAuth}>Sign up</button>
+              {signupSuccess && <p className="success-message">Account created</p>}
               <p className="switch-mode">Already have an account? <button onClick={() => setIsLogin(true)}>Login</button></p>
             </div>
           )}
@@ -128,7 +135,7 @@ function App() {
                 <tr key={product._id}>
                   <td>{product.name}</td>
                   <td>{product.price}</td>
-                  <td><img src={`/uploads/${product.productImage}`} alt={product.name} className="icons" style={{ height: '500px', width: '500px' }} /></td>
+                  <td><img src={`http://localhost:3000/${product.productImage}`} alt={product.name} className="icons" style={{ height: '500px', width: '500px' }} /></td>
                   <td>
                     <button className="form-group" onClick={() => deleteProduct(product._id)}>Delete</button>
                   </td>

@@ -2,12 +2,12 @@
 
 * {
   -webkit-box-sizing: inherit;
-          box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 html {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   font-size: 100%;
   height: 100%;
 }
@@ -267,3 +267,9 @@ p {
 .switch-mode button:hover {
   text-decoration: underline;
 }
+
+.success-message {
+  color: green;
+  font-weight: bold;
+}
+
